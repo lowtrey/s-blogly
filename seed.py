@@ -1,4 +1,4 @@
-"""Seed file to make sample data for users db."""
+# Seed file to make sample data for users db.
 
 from models import User, db
 from app import app

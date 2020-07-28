@@ -1,4 +1,4 @@
-"""Models for Blogly."""
+# Models for Blogly
 
 from flask_sqlalchemy import SQLAlchemy 
 
@@ -34,9 +34,9 @@ class User(db.Model):
   # def get_all_hungry(cls):
   #   return cls.query.filter(Pet.hunger > 20).all()
 
-  # def __repr__(self):
-  #   p = self
-  #   return f"<Pet id={p.id} name={p.name} species={p.species} hunger={p.hunger} "
+  def __repr__(self):
+    u = self
+    return f"<User first_name={u.first_name} last_name={u.last_name}>"
 
   # def greet(self):
   #   return f"Hi, I'm {self.name} the {self.species}."
