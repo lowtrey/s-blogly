@@ -38,7 +38,7 @@ def show_add_form():
 
 @app.route("/users/new", methods=["POST"])
 def add_user():
-  """Process New User Data | Redirect to Full List"""
+  """Process New User Data | Redirect to Users List"""
   # Collect Form Data
   first = request.form["first"]
   last = request.form["last"]
@@ -58,3 +58,27 @@ def add_user():
 def show_user(user_id):
   user = User.query.get_or_404(user_id)
   return render_template("user_details.html", user=user)
+
+
+@app.route("/users/<int:user_id>/edit")
+def show_edit_form(user_id):
+  user = User.query.get_or_404(user_id)
+  return render_template("edit_user_form.html", user=user)
+
+
+# Process Edit Form | Redirect To /users
+@app.route("/users/<int:user_id>/edit", methods=["POST"])
+def edit_user(user_id):
+  """Edit User Data | Redirect to Users List"""
+  user = User.query.get_or_404(user_id)
+
+  # Collect Form Data
+  user.first_name = request.form["first"]
+  user.last_name = request.form["last"]
+  user.image_url = request.form["url"]
+
+  # Update User | Redirect
+  db.session.add(user)
+  db.session.commit()
+
+  return redirect("/users")
