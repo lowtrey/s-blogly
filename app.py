@@ -52,8 +52,7 @@ def add_user():
 
   return redirect("/users")
 
-# TODO: Continue work on edit and delete buttons
-# TODO: Add base template for HTML pages
+
 @app.route("/users/<int:user_id>")
 def show_user(user_id):
   user = User.query.get_or_404(user_id)
@@ -79,6 +78,16 @@ def edit_user(user_id):
 
   # Update User | Redirect
   db.session.add(user)
+  db.session.commit()
+
+  return redirect("/users")
+
+
+@app.route("/users/<int:user_id>/delete", methods=["POST"])
+def delete_user(user_id):
+  """Delete User | Redirect to Users List"""
+  user = User.query.get_or_404(user_id)
+  db.session.delete(user)
   db.session.commit()
 
   return redirect("/users")
