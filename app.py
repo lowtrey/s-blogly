@@ -26,13 +26,14 @@ def redirect_to_users():
 @app.route("/users")
 def show_users():
   """Show Full List of Users"""
-  users = User.query.all()
+  # Sort Users by last_name, first_name
+  users = User.query.filter().order_by(User.last_name, User.first_name)
   return render_template("users.html", users=users)
 
 
 @app.route("/users/new")
 def show_add_form():
-  """Show Form for Adding Users"""
+  """Show Add User Form"""
   return render_template("add_user_form.html")
 
 
@@ -55,17 +56,18 @@ def add_user():
 
 @app.route("/users/<int:user_id>")
 def show_user(user_id):
+  """Show User Details"""
   user = User.query.get_or_404(user_id)
   return render_template("user_details.html", user=user)
 
 
 @app.route("/users/<int:user_id>/edit")
 def show_edit_form(user_id):
+  """Show Edit User Form"""
   user = User.query.get_or_404(user_id)
   return render_template("edit_user_form.html", user=user)
 
 
-# Process Edit Form | Redirect To /users
 @app.route("/users/<int:user_id>/edit", methods=["POST"])
 def edit_user(user_id):
   """Edit User Data | Redirect to Users List"""
