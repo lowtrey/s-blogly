@@ -22,7 +22,7 @@ class User(db.Model):
   last_name = db.Column(db.String(50),
                     nullable=False)
 
-  image_url = db.Column(db.String(500), 
+  image_url = db.Column(db.String(1000), 
                     nullable=False, 
                     default="https://i.stack.imgur.com/l60Hf.png")
   

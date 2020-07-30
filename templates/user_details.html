@@ -1,22 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="/static/app.css">
-  <title>User Details</title>
-</head>
-
-<body>
-  <img src="{{user.image_url}}" alt="Profile Image">
-  <h1>{{user.first_name}} {{user.last_name}}</h1>
-  <form action="/users/{{user.id}}/edit">
-    <input type="submit" value="Edit" />
-  </form>
-  <form action="">
-    <input type="submit" value="Delete" />
-  </form>
-</body>
-
-</html>
+{% extends "base.html" %}
+{% block title %}User Details{% endblock %}
+{% block content %}
+<img src="{{user.image_url}}" alt="Profile Image">
+<h1>{{user.first_name}} {{user.last_name}}</h1>
+<form action="/users/{{user.id}}/edit">
+  <input type="submit" value="Edit" />
+</form>
+<form action="">
+  <input type="submit" value="Delete" />
+</form>
+{% endblock %}
