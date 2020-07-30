@@ -51,7 +51,7 @@ class UserViewsTestCase(TestCase):
             html = resp.get_data(as_text=True)
 
             self.assertEqual(resp.status_code, 200)
-            self.assertIn(f"<h1>{self.user.first_name} {self.user.last_name}</h1>", html)
+            self.assertIn(f"<h1>{self.user.get_full_name()}</h1>", html)
 
     def test_add_user(self):
         with app.test_client() as client:
@@ -68,4 +68,4 @@ class UserViewsTestCase(TestCase):
         html = response.get_data(as_text=True)
 
         self.assertEqual(response.status_code, 200)
-        self.assertNotIn(f"{self.user.first_name} {self.user.last_name}", html)
+        self.assertNotIn(f"{self.user.get_full_name()}", html)

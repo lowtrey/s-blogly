@@ -35,11 +35,10 @@ class User(db.Model):
   #   return cls.query.filter(Pet.hunger > 20).all()
 
   def __repr__(self):
-    u = self
-    return f"<User first_name={u.first_name} last_name={u.last_name}>"
+    return f"<User first_name={self.first_name} last_name={self.last_name}>"
 
-  # def greet(self):
-  #   return f"Hi, I'm {self.name} the {self.species}."
+  def get_full_name(self):
+    return f"{self.first_name} {self.last_name}"
 
   # def feed(self, amt = 20):
   #   """Update hunger based off of amt"""
