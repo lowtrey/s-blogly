@@ -13,5 +13,7 @@
     </form>
   </div>
 </div>
-<a href="/users/{{post.user_id}}" class="btn btn-outline-secondary btn-sm my-3">&#60;&#60; Go Back</a>
+<a href="/users/{{post.user_id}}" class="btn btn-outline-secondary btn-sm my-3">
+  &#60;&#60; {{post.author.first_name}}'s Profile
+</a>
 {% endblock %}

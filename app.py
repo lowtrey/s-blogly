@@ -123,6 +123,28 @@ def show_post(post_id):
   return render_template("post.html", post=post)
 
 
+@app.route("/posts/<int:post_id>/edit")
+def show_edit_post_form(post_id):
+  post = Post.query.get_or_404(post_id)
+  return render_template("edit_post_form.html", post=post)
+
+
+@app.route("/posts/<int:post_id>/edit", methods=["POST"])
+def edit_post(post_id):
+  """Edit Post | Redirect to Post Details"""
+  post = Post.query.get_or_404(post_id)
+
+  # Collect Form Data
+  post.title = request.form["title"]
+  post.content = request.form["content"]
+
+  # Update Post | Redirect
+  db.session.add(post)
+  db.session.commit()
+
+  return redirect(f"/posts/{post_id}")
+
+
 @app.route("/posts/<int:post_id>/delete", methods=["POST"])
 def delete_post(post_id):
   """Delete Post | Redirect to User Details"""
