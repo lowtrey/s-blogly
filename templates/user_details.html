@@ -19,11 +19,12 @@
         "{{post.title}}"
       </a>
       {% endfor %}
+      <a href="/users/{{user.id}}/posts/new" class="btn btn-outline-primary btn-sm mt-3 w-40 mx-auto">Add Post</a>
     </div>
     {% else %}
     <p class="font-italic font-weight-light mt-3">{{user.first_name}} hasn't posted yet...</p>
     {% endif %}
   </div>
 </div>
-<a href="/users" class="btn btn-outline-secondary mt-3">Go Back</a>
+<a href="/users" class="btn btn-outline-secondary btn-sm mt-3">&#60;&#60; Go Back</a>
 {% endblock %}

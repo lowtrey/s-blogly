@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %}Add Post{% endblock %}
+{% block content %}
+<div class="card" style="width:50rem;">
+  <div class="card-body">
+    <h1 class="card-title display-4 text-primary text-center">Add Post for {{user.first_name}}</h1>
+    <form action="/users/new" method="POST">
+      <div class="form-group">
+        <label for="title">Title</label>
+        <input type="text" class="form-control" name="title" placeholder="Enter title" required>
+      </div>
+      <div class="form-group">
+        <label for="content">Content</label>
+        <textarea class="form-control" name="content" rows="5" placeholder="Write your post here" required></textarea>
+      </div>
+      <button type="submit" class="btn btn-outline-primary btn-block">Submit</button>
+      <a href="/users/{{user.id}}" class="btn btn-outline-danger btn-block">Cancel</a>
+    </form>
+  </div>
+</div>
+{% endblock %}
