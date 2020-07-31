@@ -5,10 +5,11 @@
   <img src="{{user.image_url}}" class="card-img-top" alt="Profile Image">
   <div class="card-body">
     <h5 class="card-title">{{user.full_name}}</h5>
-    <a href="/users/{{user.id}}/edit" class="btn btn-success btn-sm">Edit</a>
+    <a href="/users/{{user.id}}/edit" class="btn btn-outline-primary btn-sm btn-block">Edit</a>
     <form action="/users/{{user.id}}/delete" class="d-inline" method="POST">
-      <input type="submit" class="btn btn-warning btn-sm" value="Delete" />
+      <input type="submit" class="btn btn-outline-danger btn-sm btn-block mt-2" value="Delete" />
     </form>
   </div>
 </div>
+<a href="/users" class="btn btn-outline-secondary mt-3">Go Back</a>
 {% endblock %}
