@@ -105,7 +105,7 @@ def show_add_post_form(user_id):
 
 @app.route("/users/<int:user_id>/posts/new", methods=["POST"])
 def add_post(user_id):
-  """Add Post | Redirect to User Details Page"""
+  """Add Post | Redirect to User Details"""
   title = request.form["title"]
   content = request.form["content"]
   post = Post(title=title, content=content, user_id=user_id)
@@ -118,6 +118,17 @@ def add_post(user_id):
 
 @app.route("/posts/<int:post_id>")
 def show_post(post_id):
+  """Show Post Details"""
   post = Post.query.get_or_404(post_id)
-  
   return render_template("post.html", post=post)
+
+
+@app.route("/posts/<int:post_id>/delete", methods=["POST"])
+def delete_post(post_id):
+  """Delete Post | Redirect to User Details"""
+  user_id = Post.query.get_or_404(post_id).user_id
+  
+  Post.query.filter(Post.id == post_id).delete()
+  db.session.commit()
+
+  return redirect(f"/users/{user_id}")
