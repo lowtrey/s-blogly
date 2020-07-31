@@ -70,7 +70,7 @@ def show_edit_form(user_id):
 
 @app.route("/users/<int:user_id>/edit", methods=["POST"])
 def edit_user(user_id):
-  """Edit User Data | Redirect to Users List"""
+  """Edit User | Redirect to Users List"""
   user = User.query.get_or_404(user_id)
 
   # Collect Form Data
@@ -97,5 +97,27 @@ def delete_user(user_id):
 
 @app.route("/users/<int:user_id>/posts/new")
 def show_add_post_form(user_id):
-  user = User.query.get(user_id)
+  """Show Add Post Form"""
+  user = User.query.get_or_404(user_id)
+  print(user)
   return render_template("add_post_form.html", user=user)
+
+
+@app.route("/users/<int:user_id>/posts/new", methods=["POST"])
+def add_post(user_id):
+  """Add Post | Redirect to User Details Page"""
+  title = request.form["title"]
+  content = request.form["content"]
+  post = Post(title=title, content=content, user_id=user_id)
+
+  db.session.add(post)
+  db.session.commit()
+
+  return redirect(f"/users/{user_id}")
+
+
+@app.route("/posts/<int:post_id>")
+def show_post(post_id):
+  post = Post.query.get_or_404(post_id)
+  
+  return render_template("post.html", post=post)
