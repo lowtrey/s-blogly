@@ -6,7 +6,11 @@
   <div class="card-body">
     <h1 class="card-title display-4 text-primary text-center">{{post.title}}</h1>
     <p class="card-text">{{post.content}}</p>
-    <footer class="blockquote-footer mb-3">{{post.author.full_name}}</footer>
+    <footer class="blockquote-footer mb-3 font-weight-light">
+      {{post.author.full_name}}
+      <br>
+      {{post.created_at.strftime("%I:%M %p | %A, %B %d %Y")}}
+    </footer>
     <a href="/posts/{{post.id}}/edit" class="btn btn-outline-primary btn-sm btn-block">Edit</a>
     <form action="/posts/{{post.id}}/delete" class="d-inline" method="POST">
       <input type="submit" class="btn btn-outline-danger btn-sm btn-block mt-2" value="Delete" />

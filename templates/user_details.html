@@ -17,6 +17,7 @@
       {% for post in user.posts %}
       <a href="/posts/{{post.id}}" class="list-group-item list-group-item-action">
         "{{post.title}}"
+        <footer class="blockquote-footer">{{post.created_at.strftime("%I:%M %p | %x")}}</footer>
       </a>
       {% endfor %}
     </div>
