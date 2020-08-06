@@ -1,6 +1,6 @@
 # Seed file to make sample data for users db.
 
-from models import db, User, Post
+from models import db, User, Post, Tag
 from app import app
 
 # Create all tables
@@ -27,4 +27,11 @@ db.session.add(haja)
 db.session.add(ojo)
 
 # Commit - otherwise, this never gets saved!
+db.session.commit()
+
+db.session.add(Tag(name="Javascript"))
+db.session.add(Tag(name="Python"))
+db.session.add(Tag(name="HTML"))
+db.session.add(Tag(name="CSS"))
+
 db.session.commit()
