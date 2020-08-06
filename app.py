@@ -18,6 +18,7 @@ debug = DebugToolbarExtension(app)
 connect_db(app)
 
 
+# User Routes
 @app.route("/")
 def redirect_to_users():
   """"""
@@ -117,6 +118,7 @@ def add_post(user_id):
   return redirect(f"/users/{user_id}")
 
 
+# Post Routes
 @app.route("/posts/<int:post_id>")
 def show_post(post_id):
   """Show Post Details"""
@@ -156,6 +158,13 @@ def delete_post(post_id):
 
   return redirect(f"/users/{user_id}")
 
-
   # TODO: Update timestamp when post is edited
   # TODO: Show updated_at instead of created_at 
+
+
+# Tag Routes
+@app.route("/tags")
+def list_tags():
+  """List Tags | Link to Tag Details"""
+  tags = Tag.query.all()
+  return render_template("tags.html", tags=tags)
