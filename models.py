@@ -60,9 +60,18 @@ class Tag(db.Model):
 
   __tablename__ ="tags"
 
-  id = db.Column(db.Integer, primary_key=True)
+  id = db.Column(db.Integer, primary_key=True, autoincrement=True)
 
   name = db.Column(db.Text, nullable=False, unique=True)
 
   def __repr__(self):
-    return f"<Tag name={self.name}>"
+    return f"<Tag '{self.name}'>"
+
+
+class PostTag(db.Model):
+
+  __tablename__ = "posts_tags"
+
+  post_id = db.Column(db.Integer, db.ForeignKey("posts.id"), primary_key=True, nullable=False)
+
+  tag_id = db.Column(db.Integer, db.ForeignKey("tags.id"), primary_key=True, nullable=False)
