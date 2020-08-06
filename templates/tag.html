@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block title %}Tag{% endblock %}
+{% block content %}
+<div class="card text-center style=" width:40rem;">
+  <div class="card-body">
+    <h1 class="card-title display-4 text-primary text-center">{{tag.name}}</h1>
+    <!-- Conditionally Render Posts -->
+    {% if tag.posts %}
+    <h5 class="card-title mt-3 font-weight-light">Recent Posts</h5>
+    <div class="list-group text-center">
+      {% for post in tag.posts %}
+      <a href="/posts/{{post.id}}" class="list-group-item list-group-item-action">
+        "{{post.title}}"
+        <footer class="blockquote-footer">{{post.created_at.strftime("%I:%M %p | %x")}}</footer>
+      </a>
+      {% endfor %}
+    </div>
+    {% else %}
+    <p class="font-italic font-weight-light mt-3">No posts with the tag "{{tag.name}}"</p>
+    {% endif %}
+    <a href="/tags/{{tag.id}}/edit" class="btn btn-outline-primary btn-sm btn-block mt-3">Edit</a>
+    <form action="/tags/{{tag.id}}/delete" class="d-inline" method="POST">
+      <input type="submit" class="btn btn-outline-danger btn-sm btn-block mt-2" value="Delete" />
+    </form>
+  </div>
+</div>
+<a href="/tags" class="btn btn-outline-secondary btn-sm my-3">
+  &#60;&#60; All Tags
+</a>
+{% endblock %}

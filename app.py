@@ -168,3 +168,9 @@ def list_tags():
   """List Tags | Link to Tag Details"""
   tags = Tag.query.all()
   return render_template("tags.html", tags=tags)
+
+
+@app.route("/tags/<int:tag_id>")
+def show_tag(tag_id):
+  tag = Tag.query.get_or_404(tag_id)
+  return render_template("tag.html", tag=tag)

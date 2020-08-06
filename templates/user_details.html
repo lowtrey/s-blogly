@@ -9,8 +9,7 @@
     <form action="/users/{{user.id}}/delete" class="d-inline" method="POST">
       <input type="submit" class="btn btn-outline-danger btn-sm btn-block mt-2" value="Delete" />
     </form>
-
-    <!-- Connditionally Render Posts -->
+    <!-- Conditionally Render Posts -->
     {% if user.posts %}
     <h5 class="card-title mt-3 font-weight-light">Recent Posts</h5>
     <div class="list-group text-center">
