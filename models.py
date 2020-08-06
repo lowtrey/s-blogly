@@ -52,6 +52,8 @@ class Post(db.Model):
 
   author = db.relationship("User", backref="posts")
 
+  tags = db.relationship("Tag", secondary="posts_tags", backref="posts")
+
   def __repr__(self):
     return f"<Post {self.title}>"
 
