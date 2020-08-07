@@ -185,10 +185,18 @@ def show_add_tag_form():
 
 @app.route("/tags/new", methods=["POST"])
 def add_tag():
-  """Add Tag | Redirect to Tag List"""
+  """Add Tag | Redirect to Tags List"""
   tag_name = request.form["tag"]
   new_tag = Tag(name=tag_name)
   db.session.add(new_tag)
   db.session.commit()
+  return redirect("/tags")
 
+
+@app.route("/tags/<int:tag_id>/delete", methods=["POST"])
+def delete_tag(tag_id):
+  """Delete Tag | Redirect to Tags List"""
+  tag = Tag.query.get_or_404(tag_id)
+  db.session.delete(tag)
+  db.session.commit()
   return redirect("/tags")
