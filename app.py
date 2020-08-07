@@ -1,6 +1,6 @@
 from flask import Flask, request, render_template, redirect, flash, session
-from flask_debugtoolbar import DebugToolbarExtension
 from models import db, connect_db, User, Post, Tag, PostTag
+from flask_debugtoolbar import DebugToolbarExtension
 from datetime import datetime
 
 app = Flask(__name__)
@@ -60,7 +60,7 @@ def add_user():
 def show_user(user_id):
   """Show User Details"""
   user = User.query.get_or_404(user_id)
-  return render_template("user_details.html", user=user)
+  return render_template("user.html", user=user)
 
 
 @app.route("/users/<int:user_id>/edit")

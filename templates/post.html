@@ -10,7 +10,10 @@
       <br>
       {{post.created_at.strftime("%I:%M %p | %A, %B %d %Y")}}
     </footer>
-    <a href="/posts/{{post.id}}/edit" class="btn btn-outline-primary btn-sm btn-block">Edit</a>
+    {% for tag in post.tags %}
+    <span class="badge badge-pill badge-primary">{{tag.name}}</span>
+    {% endfor %}
+    <a href="/posts/{{post.id}}/edit" class="btn btn-outline-primary btn-sm btn-block mt-2">Edit</a>
     <form action="/posts/{{post.id}}/delete" class="d-inline" method="POST">
       <input type="submit" class="btn btn-outline-danger btn-sm btn-block mt-2" value="Delete" />
     </form>
