@@ -172,5 +172,23 @@ def list_tags():
 
 @app.route("/tags/<int:tag_id>")
 def show_tag(tag_id):
+  """Show Tag Details"""
   tag = Tag.query.get_or_404(tag_id)
   return render_template("tag.html", tag=tag)
+
+
+@app.route("/tags/new")
+def show_add_tag_form():
+  """Show Add Tag Form"""
+  return render_template("add_tag_form.html")
+
+
+@app.route("/tags/new", methods=["POST"])
+def add_tag():
+  """Add Tag | Redirect to Tag List"""
+  tag_name = request.form["tag"]
+  new_tag = Tag(name=tag_name)
+  db.session.add(new_tag)
+  db.session.commit()
+
+  return redirect("/tags")
