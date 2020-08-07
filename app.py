@@ -129,8 +129,10 @@ def show_post(post_id):
 
 @app.route("/posts/<int:post_id>/edit")
 def show_edit_post_form(post_id):
+  """Show Edit Post Form"""
   post = Post.query.get_or_404(post_id)
-  return render_template("edit_post_form.html", post=post)
+  tags = Tag.query.all()
+  return render_template("edit_post_form.html", post=post, tags=tags)
 
 
 @app.route("/posts/<int:post_id>/edit", methods=["POST"])
@@ -140,6 +142,13 @@ def edit_post(post_id):
   # Collect Form Data
   post.title = request.form["title"]
   post.content = request.form["content"]
+  post.tags = []
+  tag_ids = request.form.getlist("tags")
+  # Update Tags
+  if tag_ids:
+    for tag_id in tag_ids:
+      tag = Tag.query.get_or_404(int(tag_id))
+      post.tags.append(tag)
   # Update Post | Redirect
   db.session.add(post)
   db.session.commit()
@@ -153,7 +162,6 @@ def delete_post(post_id):
   
   Post.query.filter(Post.id == post_id).delete()
   db.session.commit()
-
   return redirect(f"/users/{user_id}")
 
   # TODO: Update timestamp when post is edited
