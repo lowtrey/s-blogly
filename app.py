@@ -74,16 +74,13 @@ def show_edit_form(user_id):
 def edit_user(user_id):
   """Edit User | Redirect to Users List"""
   user = User.query.get_or_404(user_id)
-
   # Collect Form Data
   user.first_name = request.form["first"]
   user.last_name = request.form["last"]
   user.image_url = request.form["url"]
-
   # Update User | Redirect
   db.session.add(user)
   db.session.commit()
-
   return redirect("/users")
 
 
@@ -93,32 +90,36 @@ def delete_user(user_id):
   user = User.query.get_or_404(user_id)
   db.session.delete(user)
   db.session.commit()
-
   return redirect("/users")
 
-
+# Post Routes
 @app.route("/users/<int:user_id>/posts/new")
 def show_add_post_form(user_id):
   """Show Add Post Form"""
   user = User.query.get_or_404(user_id)
-  print(user)
-  return render_template("add_post_form.html", user=user)
+  tags = Tag.query.all()
+  return render_template("add_post_form.html", user=user, tags=tags)
 
 
 @app.route("/users/<int:user_id>/posts/new", methods=["POST"])
 def add_post(user_id):
   """Add Post | Redirect to User Details"""
+  # Gather Form Data
   title = request.form["title"]
   content = request.form["content"]
+  tag_ids = request.form.getlist("tags")
   post = Post(title=title, content=content, user_id=user_id)
-
+  # Add Tags to Post
+  if tag_ids:
+    for tag_id in tag_ids:
+      tag = Tag.query.get_or_404(int(tag_id))
+      post.tags.append(tag)
+  # Commit Post & Redirect
   db.session.add(post)
   db.session.commit()
-
   return redirect(f"/users/{user_id}")
 
 
-# Post Routes
 @app.route("/posts/<int:post_id>")
 def show_post(post_id):
   """Show Post Details"""
@@ -136,15 +137,12 @@ def show_edit_post_form(post_id):
 def edit_post(post_id):
   """Edit Post | Redirect to Post Details"""
   post = Post.query.get_or_404(post_id)
-
   # Collect Form Data
   post.title = request.form["title"]
   post.content = request.form["content"]
-
   # Update Post | Redirect
   db.session.add(post)
   db.session.commit()
-
   return redirect(f"/posts/{post_id}")
 
 
