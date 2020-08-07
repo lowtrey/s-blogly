@@ -193,6 +193,23 @@ def add_tag():
   return redirect("/tags")
 
 
+@app.route("/tags/<int:tag_id>/edit")
+def show_edit_tag_form(tag_id):
+  """Show Edit Tag Form"""
+  tag = Tag.query.get_or_404(tag_id)
+  return render_template("edit_tag_form.html", tag=tag)
+
+
+@app.route("/tags/<int:tag_id>/edit", methods=["POST"])
+def edit_tag(tag_id):
+  """Edit Tag | Redirect to Tags List"""
+  tag = Tag.query.get_or_404(tag_id)
+  tag.name = request.form["tag"]
+  db.session.add(tag)
+  db.session.commit()
+  return redirect("/tags")
+
+
 @app.route("/tags/<int:tag_id>/delete", methods=["POST"])
 def delete_tag(tag_id):
   """Delete Tag | Redirect to Tags List"""

@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}Edit Tag{% endblock %}
+{% block content %}
+<div class="card">
+  <div class="card-body">
+    <h1 class="card-title display-4 text-primary text-center">Edit "{{tag.name}}"</h1>
+    <form action="/tags/{{tag.id}}/edit" method="POST">
+      <div class="form-group">
+        <label for="tag">Tag Name</label>
+        <input type="text" class="form-control" name="tag" value={{tag.name}} required>
+      </div>
+      <button type="submit" class="btn btn-outline-primary btn-block">Save Changes</button>
+      <a href="/tags/{{tag.id}}" class="btn btn-outline-danger btn-block">Cancel</a>
+    </form>
+  </div>
+</div>
+{% endblock %}
