@@ -20,9 +20,10 @@ connect_db(app)
 
 # User Routes
 @app.route("/")
-def redirect_to_users():
-  """"""
-  return redirect("/users")
+def show_feed():
+  """Show Post Feed"""
+  posts = Post.query.all()
+  return render_template("feed.html", posts=posts)
 
 
 @app.route("/users")
