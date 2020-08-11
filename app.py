@@ -22,7 +22,7 @@ connect_db(app)
 @app.route("/")
 def show_feed():
   """Show Post Feed"""
-  posts = Post.query.all()
+  posts = Post.query.filter().order_by(Post.created_at.desc())
   return render_template("feed.html", posts=posts)
 
 
